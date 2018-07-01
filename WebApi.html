@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.2.1/moment.min.js"></script>
+
+</head>
+<style>
+    table,
+    th,
+        {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    img {
+        width: 150px;
+        height: auto;
+    }
+</style>
+
+<body>
+    <div ng-app="app" ng-controller="foo">
+       
+        <table style="width:100%">
+            <!-- Header Table -->
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+            <!-- Header Table -->
+            <!-- body table -->
+
+            <tbody>
+                <tr>
+                    <td>
+                        <div ng-repeat="result in results" ng-init="Birthday = (result.birthday.dmy.split('/').reverse().join('-')|date:'EEE')">
+                            <div ng-if="Birthday == 'Sun'">
+                                <img src="{{result.photo}}" alt=""> {{result.name}}
+
+                                <!-- {{result.birthday.dmy.split('/').reverse().join('-')|date:'EEE'}} -->
+                                {{day(result.birthday.dmy)}}
+                                <p ng-show="day(result.birthday.dmy) == Sun">TRUE</p>
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-repeat="result in results" ng-init="Birthday = (result.birthday.dmy.split('/').reverse().join('-')|date:'EEE')">
+                            <div ng-if="Birthday == 'Mon'">
+                                <img src="{{result.photo}}" alt=""> {{result.name}}
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-repeat="result in results" ng-init="Birthday = (result.birthday.dmy.split('/').reverse().join('-')|date:'EEE')">
+                            <div ng-if="Birthday == 'Tue'">
+                                <img src="{{result.photo}}" alt=""> {{result.name}}
+
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div ng-repeat="result in results" ng-init="Birthday = (result.birthday.dmy.split('/').reverse().join('-')|date:'EEE')">
+                            <div ng-if="Birthday == 'Wed'">
+                                <img src="{{result.photo}}" alt=""> {{result.name}}
+
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div ng-repeat="result in results" ng-init="Birthday = (result.birthday.dmy.split('/').reverse().join('-')|date:'EEE')">
+                            <div ng-if="Birthday == 'Thu'">
+                                <img src="{{result.photo}}" alt=""> {{result.name}}
+
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div ng-repeat="result in results" ng-init="Birthday = (result.birthday.dmy.split('/').reverse().join('-')|date:'EEE')">
+                            <div ng-if="Birthday == 'Fri'">
+                                <img src="{{result.photo}}" alt=""> {{result.name}}
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-repeat="result in results" ng-init="Birthday = (result.birthday.dmy.split('/').reverse().join('-')|date:'EEE')">
+                            <div ng-if="Birthday == 'Sat'">
+                                <img src="{{result.photo}}" alt=""> {{result.name}}
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+
+
+            <!-- body table -->
+
+        </table>
+    </div>
+</body>
+<script>
+    angular.module("app", []).controller('foo', function ($scope, $http) {
+        $scope.s = '';
+        $scope.Sun = 'Sun';
+
+        $scope.cashsummary = function () {
+            // var url = serviceBase + cashSummaryUrl;
+            var url = 'http://uinames.com/api/?ext&amount=25';
+
+            $http.get(url).success(function (data) {
+                $scope.results = data;
+            })
+        };
+
+        $scope.day = function (s) {
+            return moment(s,'DD/MM/YYYY').format('ddd');
+        }
+        $scope.cashsummary();
+    });
+</script>
+
+</html>
